@@ -4,7 +4,7 @@ setlocal
 set PROJECT_HOME=%~dp0
 set DEMO=Generic Loan Demo
 set AUTHORS=Dan-Grigore Pupaz, Andrew Block,
-set AUTHORS2=Alexandre Porcelli, Eric D. Schabell
+set AUTHORS2=Alexandre Porcelli, Eric D. Schabell, Duncan Doyle
 set PROJECT=git@github.com:jbossdemocentral/bpms-generic-loan-demo.git
 set PRODUCT=JBoss BPM Suite
 set TARGET_DIR=%PROJECT_HOME%target
@@ -15,10 +15,10 @@ set SERVER_BIN=%JBOSS_HOME%bin
 set SRC_DIR=%PROJECT_HOME%installs
 set SUPPORT_DIR=%PROJECT_HOME%support
 set PRJ_DIR=%PROJECT_HOME%projects\bpms-generic-loan
-set BPMS=jboss-bpmsuite-installer-6.2.0.BZ-1299002.jar
+set BPMS=jboss-bpmsuite-6.3.0.GA-installer.jar
 set EAP=jboss-eap-6.4.0-installer.jar
-set EAP_PATCH=jboss-eap-6.4.4-patch.zip
-set VERSION=6.2
+set EAP_PATCH=jboss-eap-6.4.7-patch.zip
+set VERSION=6.3
 
 REM wipe screen.
 cls
@@ -87,7 +87,7 @@ if exist %JBOSS_HOME% (
 REM Run installers.
 echo EAP installer running now...
 echo.
-call java -jar %SRC_DIR%/%EAP% %SUPPORT_DIR%\installation-eap -variablefile %SUPPORT_DIR%\installation-eap.variables
+call java -jar %SRC_DIR%\%EAP% %SUPPORT_DIR%\installation-eap -variablefile %SUPPORT_DIR%\installation-eap.variables
 
 if not "%ERRORLEVEL%" == "0" (
   echo.
@@ -96,12 +96,13 @@ if not "%ERRORLEVEL%" == "0" (
 	GOTO :EOF
 )
 
+pause
 call set NOPAUSE=true
 
 echo.
 echo Applying JBoss EAP patch now...
 echo.
-call %JBOSS_HOME%/bin/jboss-cli.bat --command="patch apply %SRC_DIR%/%EAP_PATCH% --override-all"
+call %JBOSS_HOME%\bin\jboss-cli.bat --command="patch apply %SRC_DIR%/%EAP_PATCH% --override-all"
 
 if not "%ERRORLEVEL%" == "0" (
   echo.
@@ -109,11 +110,11 @@ if not "%ERRORLEVEL%" == "0" (
 	echo.
 	GOTO :EOF
 )
-
+pause
 echo.
 echo BPM Suite installer running now...
 echo.
-call java -jar %SRC_DIR%/%BPMS% %SUPPORT_DIR%\installation-bpms -variablefile %SUPPORT_DIR%\installation-bpms.variables
+call java -jar %SRC_DIR%\%BPMS% %SUPPORT_DIR%\installation-bpms -variablefile %SUPPORT_DIR%\installation-bpms.variables
 
 if not "%ERRORLEVEL%" == "0" (
   echo.
@@ -121,7 +122,7 @@ if not "%ERRORLEVEL%" == "0" (
 	echo.
 	GOTO :EOF
 )
-
+pause
 echo - setting up demo projects...
 echo.
 

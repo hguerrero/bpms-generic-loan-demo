@@ -1,7 +1,7 @@
 #!/bin/sh 
 DEMO="Generic Loan Demo"
 AUTHORS="Dan-Grigore Pupaza, Andrew Block,"
-AUTHORS2="Alexandre Porcelli, Eric D. Schabell"
+AUTHORS2="Alexandre Porcelli, Eric D. Schabell, Duncan Doyle"
 PROJECT="git@github.com:jbossdemocentral/bpms-generic-loan-demo.git"
 PRODUCT="JBoss BPM Suite"
 TARGET_DIR=./target
@@ -12,10 +12,10 @@ SERVER_BIN=$JBOSS_HOME/bin
 SRC_DIR=./installs
 SUPPORT_DIR=./support
 PRJ_DIR=./projects/bpms-generic-loan
-BPMS=jboss-bpmsuite-installer-6.2.0.BZ-1299002.jar
+BPMS=jboss-bpmsuite-6.3.0.GA-installer.jar
 EAP=jboss-eap-6.4.0-installer.jar
-EAP_PATCH=jboss-eap-6.4.4-patch.zip
-VERSION=6.2
+EAP_PATCH=jboss-eap-6.4.7-patch.zip
+VERSION=6.3
 
 # wipe screen.
 clear 
@@ -35,7 +35,7 @@ echo "##                                                             ##"
 echo "##                                                             ##"   
 echo "##  brought to you by,                                         ##"   
 echo "##   ${AUTHORS}                         ##"
-echo "##   ${AUTHORS2}                      ##"
+echo "##   ${AUTHORS2}        ##"
 echo "##                                                             ##"   
 echo "##  ${PROJECT} ##"
 echo "##                                                             ##"   
@@ -94,7 +94,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo
-echo "Applying JBoss EAP 6.4.4 patch now..."
+echo "Applying JBoss EAP patch now..."
 echo
 $JBOSS_HOME/bin/jboss-cli.sh --command="patch apply $SRC_DIR/$EAP_PATCH"
 
